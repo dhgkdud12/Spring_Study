@@ -1,6 +1,7 @@
 package com.example.spring.service;
 
 import com.example.spring.VO.StudentVO;
+import com.example.spring.domain.Student;
 import com.example.spring.dto.StudentUpdateRequestDto;
 import com.example.spring.repository.StudentDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,20 @@ public class StudentService implements IStudentService{
     private StudentDAO dao;
 
     @Override
-    public void insertStudent(StudentVO student) {
+    public void insertStudent(Student student) {
 
         dao.insertStudent(student);
     }
 
     @Override
     public StudentVO selectStudent(int id) {
+
+
         return dao.selectOne(id);
     }
 
     @Override
-    public List<StudentVO> selectAllStudents() {
+    public List<Student> selectAllStudents() {
         return dao.selectAllStudents();
     }
 

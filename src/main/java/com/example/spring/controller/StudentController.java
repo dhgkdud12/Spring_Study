@@ -1,6 +1,7 @@
 package com.example.spring.controller;
 
 import com.example.spring.VO.StudentVO;
+import com.example.spring.domain.Student;
 import com.example.spring.dto.StudentUpdateRequestDto;
 import com.example.spring.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class StudentController {
 
     // 학번, 이름 등록
     @PostMapping("/register")
-    public String register(@RequestBody StudentVO student) {
+    public String register(@RequestBody Student student) {
         service.insertStudent(student);
         return "학생 등록완료";
     }
@@ -30,13 +31,13 @@ public class StudentController {
 
 
     // 모든 학생 검색
-    @GetMapping("/list")
-    public List<StudentVO> list() {
+    @GetMapping("/")
+    public List<Student> list() {
         return service.selectAllStudents();
     }
 
     // 학생 이름 수정
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public String updateStudent(@PathVariable("id") int id, @RequestBody StudentUpdateRequestDto requesttDto) {
         System.out.println(id + " 학생이름 수정되었습니다");
         System.out.println(requesttDto.getName());
@@ -46,7 +47,7 @@ public class StudentController {
 
 
     // 학생 학번 삭제
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         System.out.println(id + " 학생 삭제되었습니다");
         service.deleteStudent(id);
@@ -54,7 +55,7 @@ public class StudentController {
     }
 
     // 학생 모두 삭제
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping("/")
     public String deleteAll() {
         service.deleteAllStudents();
         return "학생 모두 삭제완료";

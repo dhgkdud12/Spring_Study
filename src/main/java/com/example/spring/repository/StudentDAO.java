@@ -1,6 +1,7 @@
 package com.example.spring.repository;
 
 import com.example.spring.VO.StudentVO;
+import com.example.spring.domain.Student;
 import com.example.spring.dto.StudentUpdateRequestDto;
 import org.springframework.stereotype.Repository;
 
@@ -11,27 +12,30 @@ import java.util.List;
 public class StudentDAO implements IstudentDAO{
 
     // 학생 정보 저장 리스트 생성
-    private List<StudentVO> studentList = new ArrayList<>();
+    private List<Student> studentList = new ArrayList<>();
 
     @Override
-    public void insertStudent(StudentVO student) {
+    public void insertStudent(Student student) {
         System.out.println("Repository param : "+ student);
         studentList.add(student);
     }
 
     @Override
     public StudentVO selectOne(int id) {
-        StudentVO student = new StudentVO();
+        Student student = new Student();
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getId() == id) {
                 student = studentList.get(i);
+                StudentVO studentVO = new StudentVO(student.getId(),student.getName());
+                return studentVO;
             }
         }
-        return student;
+
+        return null;
     }
 
     @Override
-    public List<StudentVO> selectAllStudents() {
+    public List<Student> selectAllStudents() {
         return studentList;
     }
 

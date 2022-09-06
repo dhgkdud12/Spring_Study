@@ -1,9 +1,14 @@
 package com.example.spring.VO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Objects;
+
 public class StudentVO {
     private int id;
 
     private String name;
+
 
     public StudentVO() {
 
@@ -14,7 +19,7 @@ public class StudentVO {
         this.name = name;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -22,7 +27,16 @@ public class StudentVO {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentVO studentVO = (StudentVO) o;
+        return id == studentVO.id && Objects.equals(name, studentVO.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
